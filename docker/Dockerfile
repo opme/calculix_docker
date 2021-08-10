@@ -48,10 +48,10 @@ COPY make_hwloc.sh /tmp/hwloc-2.1.0
 RUN  cd hwloc-2.1.0 && \
     ./make_hwloc.sh
 # parsec
-#RUN git clone -b pastix-6.0.2 --single-branch https://bitbucket.org/mfaverge/parsec.git parsec_i8
-#COPY make_parsec.sh /tmp/parsec_i8
-#RUN cd parsec_i8 && \
-#    ./make_parsec.sh
+RUN git clone -b pastix-6.0.2 --single-branch https://bitbucket.org/mfaverge/parsec.git parsec_i8
+COPY make_parsec.sh /tmp/parsec_i8
+RUN cd parsec_i8 && \
+    ./make_parsec.sh
 # scotch
 RUN wget https://gforge.inria.fr/frs/download.php/file/38114/scotch_6.0.8.tar.gz && \
     tar -xvzf scotch_6.0.8.tar.gz
