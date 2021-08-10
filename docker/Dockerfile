@@ -43,30 +43,26 @@ RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
 RUN git clone https://github.com/xianyi/OpenBLAS.git OpenBLAS_i8
 # hwloc-2.1.0
 RUN wget https://download.open-mpi.org/release/hwloc/v2.1/hwloc-2.1.0.tar.gz && \
-    tar -xvzf hwloc-2.1.0.tar.gz && \
-    cp /tmp/CalculiX/ccx_2.17/src/make_hwloc.sh hwloc-2.1.0 && \
-    cd hwloc-2.1.0 && \
-    chmod 755 make_hwloc.sh && \
+    tar -xvzf hwloc-2.1.0.tar.gz
+COPY make_hwloc.sh /tmp/hwloc-2.1.0
+RUN  cd hwloc-2.1.0 && \
     ./make_hwloc.sh
 # parsec
-RUN git clone -b pastix-6.0.2 --single-branch https://bitbucket.org/mfaverge/parsec.git && \
-    cp /tmp/CalculiX/ccx_2.17/src/make_parsec.sh parsec && \
-    cd parsec && \
-    chmod 755 make_parsec.sh && \
-    ./make_parsec.sh
+#RUN git clone -b pastix-6.0.2 --single-branch https://bitbucket.org/mfaverge/parsec.git parsec_i8
+#COPY make_parsec.sh /tmp/parsec_i8
+#RUN cd parsec_i8 && \
+#    ./make_parsec.sh
 # scotch
 RUN wget https://gforge.inria.fr/frs/download.php/file/38114/scotch_6.0.8.tar.gz && \
-    tar -xvzf scotch_6.0.8.tar.gz && \
-    cp /tmp/CalculiX/ccx_2.17/src/make_scotch.sh scotch_6.0.8 && \
-    cd scotch_6.0.8 && \
-    chmod 755 make_scotch.sh && \
+    tar -xvzf scotch_6.0.8.tar.gz
+COPY make_scotch.sh /tmp/scotch_6.0.8
+RUN cd scotch_6.0.8 && \
     ./make_scotch.sh
 # PaStiX4CalculiX
-RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_src && \
-    cp /tmp/CalculiX/ccx_2.17/src/make_pastix.sh pastix_src && \
-    cd pastix_src && \
-    make -f Makefile_i8 && \
-    make
+RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_src
+COPY make_pastix.sh /tmp/pastix_src
+RUN cd pastix_src && \
+    ./make_pastix.sh
 
 
 #
