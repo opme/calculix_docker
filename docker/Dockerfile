@@ -49,6 +49,8 @@ RUN  cd hwloc-2.1.0 && \
 # parsec
 RUN git clone -b pastix-6.0.2 --single-branch https://bitbucket.org/mfaverge/parsec.git parsec_i8
 COPY make_parsec.sh /tmp/parsec_i8
+RUN mkdir -p /tmp/parsec_i8/build/tools/profiling/python && \
+    touch parsec_i8/build/tools/profiling/python/pbt2ptt.so
 RUN cd parsec_i8 && \
     ./make_parsec.sh
 # scotch
@@ -58,9 +60,9 @@ COPY make_scotch.sh /tmp/scotch_6.0.8
 RUN cd scotch_6.0.8 && \
     ./make_scotch.sh
 # PaStiX4CalculiX
-RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_src
-COPY make_pastix.sh /tmp/pastix_src
-RUN cd pastix_src && \
+RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_i8
+COPY make_pastix.sh /tmp/pastix_i8
+RUN cd pastix_i8 && \
     ./make_pastix.sh
 
 
