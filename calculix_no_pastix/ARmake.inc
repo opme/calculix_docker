@@ -32,7 +32,7 @@ home = /tmp/ARPACK
 #  | the end of library names             |
 #  %--------------------------------------%
 #
-PLAT = SUN4
+PLAT = INTEL
 #
 #  %------------------------------------------------------%
 #  | The directories to find the various pieces of ARPACK |

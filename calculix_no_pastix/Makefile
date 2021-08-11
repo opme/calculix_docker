@@ -1,6 +1,6 @@
 
 CFLAGS = -Wall -O2  -I /tmp/spooles.2.2 -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DNETWORKOUT
-FFLAGS = -Wall -O2
+FFLAGS = -O2
 
 CC=cc
 FC=ifort
@@ -26,7 +26,7 @@ LIBS = \
        -lpthread -lm -lc
 
 ccx_2.17: $(OCCXMAIN) ccx_2.17.a  $(LIBS)
-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC)  -Wall -O2 -o $@ $(OCCXMAIN) ccx_2.17.a $(LIBS)
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC) -nofor-main -Wall -O2 -o $@ $(OCCXMAIN) ccx_2.17.a $(LIBS)
 
 ccx_2.17.a: $(OCCXF) $(OCCXC)
 	ar vr $@ $?
