@@ -48,10 +48,8 @@ FROM continuumio/anaconda3
 EXPOSE 8888
 
 RUN apt-get update
-RUN apt-get install -y unzip libcminpack-dev ffmpeg libsm6 libxext6
-COPY --from=spooles /tmp/spooles.2.2.tgz /
-COPY --from=arpack  /tmp/patch.tar.gz /
-COPY --from=calculix /tmp/ccx_2.17.src.tar /
+RUN apt-get install -y wget zip
+COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17 /usr/local/bin
 
 # add command
 WORKDIR /
