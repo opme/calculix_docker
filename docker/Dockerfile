@@ -30,7 +30,7 @@ RUN cd ARPACK && \
 # build pastix
 FROM intel/oneapi-hpckit:latest as pastix
 RUN apt-get update
-RUN apt-get install -y wget git flex bison libgvc6 graphviz gtg
+RUN apt-get install -y wget git flex bison libz-dev
 WORKDIR /tmp
 # get CalculiX for the scripts
 RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \

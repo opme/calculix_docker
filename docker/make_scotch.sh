@@ -7,4 +7,6 @@ sed -i '/CFLAGS/ s/$/ -DINTSIZE64/' Makefile.inc
 
 make -j8 scotch
 make -j8 esmumps
+# install
 make prefix=/tmp/scotch_6.0.8 install
+ls /tmp/scotch_6.0.8/lib
