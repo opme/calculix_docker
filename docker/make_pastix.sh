@@ -13,7 +13,7 @@ cmake   \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DPASTIX_WITH_PARSEC=ON \
 	-DPARSEC_DIR=/tmp/parsec_i8 \
-	-DSCOTCH_DIR=/tmp/scotch_i8 \
+	-DSCOTCH_DIR=/tmp/scotch_6.0.8 \
 	-DPASTIX_WITH_CUDA=OFF \
 	-DCUDA_DIR=/usr/local/cuda-10.2 \
 	-DPASTIX_ORDERING_SCOTCH=ON \

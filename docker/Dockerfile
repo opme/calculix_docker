@@ -4,8 +4,7 @@
 # build spooles
 FROM intel/oneapi-hpckit:latest as spooles
 RUN apt-get update
-RUN apt-get install -y wget
-RUN apt-get install -y git
+RUN apt-get install -y wget git
 WORKDIR /tmp
 RUN wget http://www.netlib.org/linalg/spooles/spooles.2.2.tgz && \
     mkdir spooles.2.2 && \
@@ -18,8 +17,7 @@ RUN cd spooles.2.2 && \
 # build arpack
 FROM intel/oneapi-hpckit:latest as arpack
 RUN apt-get update
-RUN apt-get install -y wget
-RUN apt-get install -y git
+RUN apt-get install -y wget git
 WORKDIR /tmp
 RUN wget https://www.caam.rice.edu/software/ARPACK/SRC/arpack96.tar.gz && \
     wget https://www.caam.rice.edu/software/ARPACK/SRC/patch.tar.gz && \
@@ -32,15 +30,16 @@ RUN cd ARPACK && \
 # build pastix
 FROM intel/oneapi-hpckit:latest as pastix
 RUN apt-get update
-RUN apt-get install -y wget
-RUN apt-get install -y git
+RUN apt-get install -y wget git flex bison libgvc6 graphviz gtg
 WORKDIR /tmp
 # get CalculiX for the scripts
 RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
     bunzip2 ccx_2.17.src.tar.bz2 && \
     tar xvf ccx_2.17.src.tar
 # BLAS (e.g. OpenBLAS)
-RUN git clone https://github.com/xianyi/OpenBLAS.git OpenBLAS_i8
+RUN git clone https://github.com/xianyi/OpenBLAS.git OpenBLAS_i8 && \
+    cd OpenBLAS_i8 && \
+    make
 # hwloc-2.1.0
 RUN wget https://download.open-mpi.org/release/hwloc/v2.1/hwloc-2.1.0.tar.gz && \
     tar -xvzf hwloc-2.1.0.tar.gz

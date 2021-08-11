@@ -27,6 +27,3 @@ cmake \
     ..
 
 make -j8
-
-rm -rf ${INSTALLPATH}
-make install
