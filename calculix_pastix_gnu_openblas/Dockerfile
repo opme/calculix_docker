@@ -75,7 +75,6 @@ RUN cd scotch_6.0.8 && \
 # PaStiX4CalculiX
 RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_i8
 COPY make_pastix.sh /tmp/pastix_i8
-#COPY LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake/modules/find/LibrariesAbsolutePath.cmake
 RUN apt-get install -y python2-minimal
 RUN cd pastix_i8 && \
     ./make_pastix.sh
