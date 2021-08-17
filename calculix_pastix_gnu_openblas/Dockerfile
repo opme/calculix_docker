@@ -2,9 +2,9 @@
 # author: Michael Shamberger
 
 # build spooles
-FROM intel/oneapi-hpckit:latest as spooles
+FROM ubuntu:20.04 as spooles
 RUN apt-get update
-RUN apt-get install -y wget git
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc build-essential
 WORKDIR /tmp
 RUN wget http://www.netlib.org/linalg/spooles/spooles.2.2.tgz && \
     mkdir spooles.2.2 && \
@@ -15,9 +15,9 @@ RUN cd spooles.2.2 && \
     make lib
 
 # build arpack
-FROM intel/oneapi-hpckit:latest as arpack
+FROM ubuntu:20.04 as arpack
 RUN apt-get update
-RUN apt-get install -y wget git
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential
 WORKDIR /tmp
 RUN wget https://www.caam.rice.edu/software/ARPACK/SRC/arpack96.tar.gz && \
     wget https://www.caam.rice.edu/software/ARPACK/SRC/patch.tar.gz && \
@@ -28,9 +28,9 @@ RUN cd ARPACK && \
     make lib
 
 # build pastix
-FROM intel/oneapi-hpckit:latest as pastix
+FROM ubuntu:20.04 as pastix
 RUN apt-get update
-RUN apt-get install -y wget git flex bison libz-dev software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git flex bison libz-dev software-properties-common gcc gfortran build-essential
 WORKDIR /tmp
 
 #RUN apt-get install -y nvidia-cuda-toolkit
@@ -50,7 +50,9 @@ RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
 # BLAS (e.g. OpenBLAS)
 RUN git clone https://github.com/xianyi/OpenBLAS.git OpenBLAS_i8 && \
     cd OpenBLAS_i8 && \
-    make
+    make && \
+    make install
+RUN apt-get install -y cmake
 # hwloc-2.1.0
 RUN wget https://download.open-mpi.org/release/hwloc/v2.1/hwloc-2.1.0.tar.gz && \
     tar -xvzf hwloc-2.1.0.tar.gz
@@ -73,7 +75,8 @@ RUN cd scotch_6.0.8 && \
 # PaStiX4CalculiX
 RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_i8
 COPY make_pastix.sh /tmp/pastix_i8
-COPY LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake/modules/find/LibrariesAbsolutePath.cmake
+#COPY LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake/modules/find/LibrariesAbsolutePath.cmake
+RUN apt-get install -y python2-minimal
 RUN cd pastix_i8 && \
     ./make_pastix.sh
 
