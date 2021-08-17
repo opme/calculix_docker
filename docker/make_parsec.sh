@@ -18,11 +18,11 @@ cmake \
     -DCMAKE_Fortran_COMPILER=ifort \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=${INSTALLPATH} \
-    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
-    -DCUDA_DIR=/usr/local/cuda-10.2 \
-    -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF \
+    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
+    -DCUDA_DIR=/usr/local/cuda \
+    -DCUDA_USE_STATIC_CUDA_RUNTIME=ON \
     -DCMAKE_CUDA_HOST_COMPILER=cc \
-    -DPARSEC_GPU_WITH_CUDA=OFF \
+    -DPARSEC_GPU_WITH_CUDA=ON \
     -DHWLOC_DIR=/tmp/hwloc_i8 \
     ..
 

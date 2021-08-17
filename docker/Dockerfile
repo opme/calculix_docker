@@ -30,8 +30,19 @@ RUN cd ARPACK && \
 # build pastix
 FROM intel/oneapi-hpckit:latest as pastix
 RUN apt-get update
-RUN apt-get install -y wget git flex bison libz-dev
+RUN apt-get install -y wget git flex bison libz-dev software-properties-common
 WORKDIR /tmp
+
+#RUN apt-get install -y nvidia-cuda-toolkit
+RUN apt-get install -y freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
+RUN add-apt-repository ppa:graphics-drivers/ppa
+RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+RUN echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | tee /etc/apt/sources.list.d/cuda.list
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-overwrite" install cuda-11-4 cuda-drivers
+
+WORKDIR /tmp
+
 # get CalculiX for the scripts
 RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
     bunzip2 ccx_2.17.src.tar.bz2 && \
@@ -62,6 +73,7 @@ RUN cd scotch_6.0.8 && \
 # PaStiX4CalculiX
 RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_i8
 COPY make_pastix.sh /tmp/pastix_i8
+COPY LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake/modules/find/LibrariesAbsolutePath.cmake
 RUN cd pastix_i8 && \
     ./make_pastix.sh
 
