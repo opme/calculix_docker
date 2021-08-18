@@ -32,5 +32,5 @@ cmake \
 	-DCMAKE_C_FLAGS="-fopenmp -I/usr/local/cuda/include" \
     ..
 
-make
+make -j8
 make install
