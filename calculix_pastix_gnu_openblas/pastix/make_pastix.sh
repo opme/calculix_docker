@@ -4,7 +4,7 @@ if ! [[ -d build ]]; then
 fi
 cd build
 
-INSTALLPATH="/tmp/pastix"
+INSTALLPATH="/tmp/pastix_i8"
 CUDADIR="/usr/local/cuda"
 PARSECDIR="/tmp/parsec_i8"
 SCOTCHDIR="/tmp/scotch_6.0.8"

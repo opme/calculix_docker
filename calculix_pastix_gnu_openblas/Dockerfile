@@ -30,7 +30,7 @@ RUN cd ARPACK && \
 # build pastix
 FROM ubuntu:20.04 as pastix
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git flex bison libz-dev software-properties-common gcc gfortran build-essential cmake
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git flex bison libz-dev software-properties-common gcc gfortran build-essential cmake python2-minimal
 # install nvidia toolkit
 RUN apt-get install -y freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 RUN add-apt-repository ppa:graphics-drivers/ppa
@@ -40,10 +40,6 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-overwrite" install cuda-11-4 cuda-drivers
 
 WORKDIR /tmp
-# get CalculiX for the scripts
-RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
-    bunzip2 ccx_2.17.src.tar.bz2 && \
-    tar xvf ccx_2.17.src.tar
 # BLAS (e.g. OpenBLAS)
 RUN git clone https://github.com/xianyi/OpenBLAS.git OpenBLAS_i8 && \
     cd OpenBLAS_i8 && \
@@ -71,9 +67,28 @@ RUN cd scotch_6.0.8 && \
 # PaStiX4CalculiX
 RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_i8
 COPY pastix/make_pastix.sh /tmp/pastix_i8
-RUN apt-get install -y python2-minimal
 RUN cd pastix_i8 && \
     ./make_pastix.sh
+
+# build calculix
+FROM ubuntu:20.04 as calculix
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential
+WORKDIR /tmp
+COPY --from=spooles /tmp/spooles.2.2 /tmp/spooles.2.2
+COPY --from=arpack /tmp/ARPACK /tmp/ARPACK_i8
+COPY --from=pastix /tmp/hwloc_i8/lib/libhwloc.so /tmp/hwloc_i8/lib
+COPY --from=pastix /opt/OpenBLAS/lib /opt/OpenBLAS/lib
+COPY --from=pastix /tmp/scotch_6.0.8/lib /tmp/scotch_i8/lib
+COPY --from=pastix /tmp/parsec_i8/lib /tmp/parsec_i8/lib
+COPY --from=pastix /tmp/pastix_i8/lib /tmp/pastix_i8/lib
+COPY --from=pastix /usr/local/cuda/lib64 /usr/local/cuda/lib64
+RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
+    bunzip2 ccx_2.17.src.tar.bz2 && \
+    tar xvf ccx_2.17.src.tar
+COPY calculix/Makefile_i8 /tmp/CalculiX/ccx_2.17/src
+RUN cd CalculiX/ccx_2.17/src && \
+    make -f Makefile_i8
 
 
 #
@@ -84,9 +99,7 @@ EXPOSE 8888
 
 RUN apt-get update
 RUN apt-get install -y unzip libcminpack-dev ffmpeg libsm6 libxext6
-COPY --from=spooles /tmp/spooles.2.2.tgz /
-COPY --from=arpack  /tmp/patch.tar.gz /
-COPY --from=pastix  /tmp/ccx_2.17.src.tar /
+COPY --from=calculix /tmp/ccx_2.17.src.tar /tmp/ccx_2.17.src.tar
 
 # add command
 WORKDIR /
