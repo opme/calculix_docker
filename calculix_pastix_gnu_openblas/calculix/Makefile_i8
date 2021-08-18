@@ -25,8 +25,8 @@ PASTIX_LIBS = /tmp/hwloc_i8/lib/libhwloc.so /opt/OpenBLAS/lib/libopenblas.a \
   /tmp/pastix_i8/lib/libpastix.a /opt/OpenBLAS/lib/libopenblas.a -lpthread -lm /tmp/pastix_i8/lib/libspm.a \
   /tmp/pastix_i8/lib/libpastix_parsec.a /tmp/pastix_i8/lib/libpastix_kernels.a /opt/OpenBLAS/lib/libopenblas.a -lrt \
   /tmp/pastix_i8/lib/libpastix_kernels_cuda.a /tmp/parsec_i8/lib/libparsec.so \
-  /usr/local/cuda-10.2/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/lib64/libcublas_static.a \
-  /usr/local/cuda-10.2/lib64/libculibos.a /usr/lib64/libcublasLt_static.a -lrt \
+  /usr/local/cuda/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/local/cuda/targets/x86_64-linux/lib/libcublas_static.a \
+  /usr/local/cuda/lib64/libculibos.a /usr/local/cuda/targets/x86_64-linux/lib/libcublasLt_static.a -lrt \
   /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm /usr/lib64/libstdc++.so.6 /usr/lib64/libgomp.so.1
 
 LIBS = \

@@ -77,13 +77,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran buil
 WORKDIR /tmp
 COPY --from=spooles /tmp/spooles.2.2 /tmp/spooles.2.2
 COPY --from=arpack /tmp/ARPACK /tmp/ARPACK_i8
-COPY --from=pastix /tmp/hwloc_i8/lib/libhwloc.so /tmp/hwloc_i8/lib
+COPY --from=pastix /tmp/hwloc_i8/lib /tmp/hwloc_i8/lib
 COPY --from=pastix /opt/OpenBLAS/lib /opt/OpenBLAS/lib
 COPY --from=pastix /tmp/scotch_6.0.8/lib /tmp/scotch_i8/lib
 COPY --from=pastix /tmp/parsec_i8/lib /tmp/parsec_i8/lib
 COPY --from=pastix /tmp/pastix_i8/lib /tmp/pastix_i8/lib
 COPY --from=pastix /tmp/pastix_i8/include /tmp/pastix_i8/include
 COPY --from=pastix /usr/local/cuda/lib64 /usr/local/cuda/lib64
+COPY --from=pastix /usr/local/cuda/targets/x86_64-linux/lib /usr/local/cuda/targets/x86_64-linux/lib
 RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
     bunzip2 ccx_2.17.src.tar.bz2 && \
     tar xvf ccx_2.17.src.tar
