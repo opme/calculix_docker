@@ -73,7 +73,7 @@ RUN cd pastix_i8 && \
 # build calculix
 FROM ubuntu:20.04 as calculix
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential zlib1g-dev
 WORKDIR /tmp
 COPY --from=spooles /tmp/spooles.2.2 /tmp/spooles.2.2
 COPY --from=arpack /tmp/ARPACK /tmp/ARPACK_i8

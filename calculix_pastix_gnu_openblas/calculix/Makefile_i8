@@ -27,7 +27,7 @@ PASTIX_LIBS = /tmp/hwloc_i8/lib/libhwloc.so /opt/OpenBLAS/lib/libopenblas.a \
   /tmp/pastix_i8/lib/libpastix_kernels_cuda.a /tmp/parsec_i8/lib/libparsec.so \
   /usr/local/cuda/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/local/cuda/targets/x86_64-linux/lib/libcublas_static.a \
   /usr/local/cuda/lib64/libculibos.a /usr/local/cuda/targets/x86_64-linux/lib/libcublasLt_static.a -lrt \
-  /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm /usr/lib64/libstdc++.so.6 /usr/lib64/libgomp.so.1
+  /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libgomp.so.1
 
 LIBS = \
      $(DIR)/spooles.a \
