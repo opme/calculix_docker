@@ -59,7 +59,7 @@ DIRS        = $(BLASdir) $(LAPACKdir) $(UTILdir) $(SRCdir)
 #
 ARPACKLIB  = $(home)/libarpack_$(PLAT).a
 LAPACKLIB = 
-BLASLIB = 
+BLASLIB = /opt/OpenBLAS/lib
 #
 ALIBS =  $(ARPACKLIB) $(LAPACKLIB) $(BLASLIB) 
 #

@@ -17,8 +17,12 @@ RUN cd spooles.2.2 && \
 # build arpack
 FROM ubuntu:20.04 as arpack
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential cmake
 WORKDIR /tmp
+RUN git clone https://github.com/xianyi/OpenBLAS.git OpenBLAS_i8 && \
+    cd OpenBLAS_i8 && \
+    make && \
+    make install
 RUN wget https://www.caam.rice.edu/software/ARPACK/SRC/arpack96.tar.gz && \
     wget https://www.caam.rice.edu/software/ARPACK/SRC/patch.tar.gz && \
     tar -xvzf arpack96.tar.gz && \
