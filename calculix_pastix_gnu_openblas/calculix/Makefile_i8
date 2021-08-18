@@ -1,8 +1,8 @@
 
-CFLAGS = -Wall -O2 -fopenmp -fpic -I /tmp/SPOOLES.2.2 -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DLONGLONG -DPASTIX -DPASTIX_FP32 -DPASTIX_GPU
+CFLAGS = -Wall -O2 -fopenmp -fpic -I /tmp/spooles.2.2 -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DLONGLONG -DPASTIX -DPASTIX_FP32 -DPASTIX_GPU
 FFLAGS = -Wall -O2 -fopenmp -fpic -fdefault-integer-8
 
-CC=cc
+CC=gcc
 FC=gfortran
 
 .c.o :
@@ -18,7 +18,7 @@ OCCXF = $(SCCXF:.f=.o)
 OCCXC = $(SCCXC:.c=.o)
 OCCXMAIN = $(SCCXMAIN:.c=.o)
 
-DIR=/tmp/SPOOLES.2.2
+DIR=/tmp/spooles.2.2
 
 PASTIX_INCLUDE = /tmp/pastix_i8/include
 PASTIX_LIBS = /tmp/hwloc_i8/lib/libhwloc.so /opt/OpenBLAS/lib/libopenblas.a \
@@ -31,7 +31,7 @@ PASTIX_LIBS = /tmp/hwloc_i8/lib/libhwloc.so /opt/OpenBLAS/lib/libopenblas.a \
 
 LIBS = \
      $(DIR)/spooles.a \
-     /tmp/ARPACK_i8/libarpack_INTEL_i8.a \
+     /tmp/ARPACK_i8/libarpack_INTEL.a \
      $(PASTIX_LIBS) \
      -lpthread -lm -lc
 

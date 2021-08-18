@@ -82,6 +82,7 @@ COPY --from=pastix /opt/OpenBLAS/lib /opt/OpenBLAS/lib
 COPY --from=pastix /tmp/scotch_6.0.8/lib /tmp/scotch_i8/lib
 COPY --from=pastix /tmp/parsec_i8/lib /tmp/parsec_i8/lib
 COPY --from=pastix /tmp/pastix_i8/lib /tmp/pastix_i8/lib
+COPY --from=pastix /tmp/pastix_i8/include /tmp/pastix_i8/include
 COPY --from=pastix /usr/local/cuda/lib64 /usr/local/cuda/lib64
 RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
     bunzip2 ccx_2.17.src.tar.bz2 && \
