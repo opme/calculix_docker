@@ -1,6 +1,6 @@
 
 CFLAGS = -Wall -O2 -fopenmp -fpic -I /tmp/spooles.2.2 -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DLONGLONG -DPASTIX -DPASTIX_FP32 -DPASTIX_GPU
-FFLAGS = -Wall -O2 -fopenmp -fpic -fdefault-integer-8
+FFLAGS = -qopenmp -lpthread -O2
 
 CC=cc
 FC=ifort
@@ -36,7 +36,7 @@ LIBS = \
      -lpthread -lm -lc
 
 ccx_2.17_i8: $(OCCXMAIN) ccx_2.17.a $(LIBS)
-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC) -nofor-main -Wall -O2 -o $@ \
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC) -nofor-main -mkl -O2 -o $@ \
 	$(OCCXMAIN) ccx_2.17.a $(LIBS)
 
 ccx_2.17.a: $(OCCXF) $(OCCXC)

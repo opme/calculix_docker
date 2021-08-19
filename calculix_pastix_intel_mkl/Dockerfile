@@ -69,8 +69,8 @@ COPY pastix/LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake
 RUN cd pastix_i8 && \
     ./make_pastix.sh
 
-# build calculix
-FROM intel/oneapi-hpckit:latest
+# build calculix as calculix
+FROM intel/oneapi-hpckit:latest as calculix
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential zlib1g-dev hwloc
 WORKDIR /tmp
@@ -87,19 +87,17 @@ RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
     bunzip2 ccx_2.17.src.tar.bz2 && \
     tar xvf ccx_2.17.src.tar
 COPY calculix/Makefile_i8 /tmp/CalculiX/ccx_2.17/src
-#RUN . /opt/intel/oneapi/setvars.sh && \
-RUN env && \
-    cd CalculiX/ccx_2.17/src && \
+RUN cd CalculiX/ccx_2.17/src && \
     make -f Makefile_i8
 
 
 #
 # base image
 #
-#FROM ubuntu:20.04
-#ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
-#RUN apt-get update
-#RUN apt-get install -y unzip hwloc gfortran gcc
-#COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
-#COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
-#WORKDIR /
+FROM ubuntu:20.04
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
+RUN apt-get update
+RUN apt-get install -y unzip hwloc gfortran gcc
+COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
+COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
+WORKDIR /
