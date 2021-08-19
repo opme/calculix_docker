@@ -27,7 +27,7 @@ PASTIX_LIBS = /tmp/pastix_i8/lib/libpastix.a -lpthread -lm /tmp/pastix_i8/lib/li
   /usr/local/cuda/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/local/cuda/targets/x86_64-linux/lib/libcublas_static.a \
   /usr/local/cuda/lib64/libculibos.a /usr/local/cuda/targets/x86_64-linux/lib/libcublasLt_static.a -lrt \
   /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm \
-  /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libgomp.so.1 /usr/lib/x86_64-linux-gnu/libhwloc.so.15.1.0
+  /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libgomp.so.1 /usr/lib/x86_64-linux-gnu/libhwloc.so.5.7.6
 
 LIBS = \
      $(DIR)/spooles.a \
@@ -36,7 +36,7 @@ LIBS = \
      -lpthread -lm -lc
 
 ccx_2.17_i8: $(OCCXMAIN) ccx_2.17.a $(LIBS)
-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC) -Wall -O2 -o $@ \
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC) -nofor-main -Wall -O2 -o $@ \
 	$(OCCXMAIN) ccx_2.17.a $(LIBS)
 
 ccx_2.17.a: $(OCCXF) $(OCCXC)
