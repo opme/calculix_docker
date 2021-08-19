@@ -78,15 +78,10 @@ RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
 #
 # base image
 #
-FROM continuumio/anaconda3
-EXPOSE 8888
-
+FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install -y unzip libcminpack-dev ffmpeg libsm6 libxext6
 COPY --from=spooles /tmp/spooles.2.2.tgz /
 COPY --from=arpack  /tmp/patch.tar.gz /
 COPY --from=pastix  /tmp/ccx_2.17.src.tar /
-
-# add command
 WORKDIR /
-CMD ["jupyter", "lab", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]

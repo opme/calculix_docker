@@ -45,13 +45,8 @@ RUN cd CalculiX/ccx_2.17/src && \
 #
 # base image
 #
-FROM continuumio/anaconda3
-EXPOSE 8888
-
+FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install -y wget zip
 COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17 /usr/local/bin
-
-# add command
 WORKDIR /
-CMD ["jupyter", "lab", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
