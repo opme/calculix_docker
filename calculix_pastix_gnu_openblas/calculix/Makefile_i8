@@ -28,7 +28,7 @@ PASTIX_LIBS = /opt/OpenBLAS/lib/libopenblas.a \
   /usr/local/cuda/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/local/cuda/targets/x86_64-linux/lib/libcublas_static.a \
   /usr/local/cuda/lib64/libculibos.a /usr/local/cuda/targets/x86_64-linux/lib/libcublasLt_static.a -lrt \
   /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm \
-  /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libgomp.so.1 /usr/lib/x86_64-linux-gnu/libhwloc.so.15.1.0
+  /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libgomp.so.1 /tmp/hwloc_i8/lib/libhwloc.a
 
 LIBS = \
      $(DIR)/spooles.a \

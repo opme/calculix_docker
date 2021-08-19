@@ -74,7 +74,7 @@ RUN cd pastix_i8 && \
 # build calculix
 FROM ubuntu:20.04 as calculix
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential zlib1g-dev hwloc
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential zlib1g-dev
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 WORKDIR /tmp
 COPY --from=spooles /tmp/spooles.2.2 /tmp/spooles.2.2
@@ -101,7 +101,7 @@ RUN cd CalculiX/ccx_2.17/src && \
 FROM ubuntu:20.04
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
 RUN apt-get update
-RUN apt-get install -y unzip hwloc gfortran gcc
+RUN apt-get install -y unzip gfortran gcc
 COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
 COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
 WORKDIR /
