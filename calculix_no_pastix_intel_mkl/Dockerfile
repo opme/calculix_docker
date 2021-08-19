@@ -24,6 +24,7 @@ RUN wget https://www.caam.rice.edu/software/ARPACK/SRC/arpack96.tar.gz && \
     tar -xvzf arpack96.tar.gz && \
     tar -xvzf patch.tar.gz
 COPY arpack/ARmake.inc /tmp/ARPACK
+COPY arpack/second.f /tmp/ARPACK/UTIL
 RUN cd ARPACK && \
     make lib
 

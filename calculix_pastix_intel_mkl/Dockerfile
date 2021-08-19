@@ -24,13 +24,14 @@ RUN wget https://www.caam.rice.edu/software/ARPACK/SRC/arpack96.tar.gz && \
     tar -xvzf arpack96.tar.gz && \
     tar -xvzf patch.tar.gz
 COPY arpack/ARmake.inc /tmp/ARPACK
+COPY arpack/second.f /tmp/ARPACK/UTIL
 RUN cd ARPACK && \
     make lib
 
 # build pastix
 FROM intel/oneapi-hpckit:latest as pastix
 RUN apt-get update
-RUN apt-get install -y wget git flex bison libz-dev software-properties-common
+RUN apt-get install -y wget git flex bison libz-dev software-properties-common python-minimal
 WORKDIR /tmp
 
 #RUN apt-get install -y nvidia-cuda-toolkit
@@ -43,10 +44,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-overwr
 
 WORKDIR /tmp
 
-# get CalculiX
-RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
-    bunzip2 ccx_2.17.src.tar.bz2 && \
-    tar xvf ccx_2.17.src.tar
 # hwloc-2.1.0
 RUN wget https://download.open-mpi.org/release/hwloc/v2.1/hwloc-2.1.0.tar.gz && \
     tar -xvzf hwloc-2.1.0.tar.gz
@@ -70,8 +67,12 @@ RUN cd scotch_6.0.8 && \
 RUN git clone https://github.com/Dhondtguido/PaStiX4CalculiX pastix_i8
 COPY pastix/make_pastix.sh /tmp/pastix_i8
 COPY pastix/LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake/modules/find/LibrariesAbsolutePath.cmake
-#RUN cd pastix_i8 && \
-#    ./make_pastix.sh
+RUN cd pastix_i8 && \
+    ./make_pastix.sh
+# CalculiX
+RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
+    bunzip2 ccx_2.17.src.tar.bz2 && \
+    tar xvf ccx_2.17.src.tar
 
 
 #
