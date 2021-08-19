@@ -37,7 +37,7 @@ LIBS = \
      -lpthread -lm -lc
 
 ccx_2.17_i8: $(OCCXMAIN) ccx_2.17.a $(LIBS)
-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.17.c; $(FC) -Wall -O2 -o $@ \
+	./date.pl; $(CC) $(CFLAGS) -static -c ccx_2.17.c; $(FC) -Wall -O2 -o $@ \
 	$(OCCXMAIN) ccx_2.17.a $(LIBS)
 
 ccx_2.17.a: $(OCCXF) $(OCCXC)
