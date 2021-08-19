@@ -1,9 +1,9 @@
 
-CFLAGS = -Wall -O2 -fopenmp -fpic -I /tmp/SPOOLES.2.2 -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DLONGLONG -DPASTIX -DPASTIX_FP32 -DPASTIX_GPU
+CFLAGS = -Wall -O2 -fopenmp -fpic -I /tmp/spooles.2.2 -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DLONGLONG -DPASTIX -DPASTIX_FP32 -DPASTIX_GPU
 FFLAGS = -Wall -O2 -fopenmp -fpic -fdefault-integer-8
 
 CC=cc
-FC=gfortran
+FC=ifort
 
 .c.o :
 	$(CC) $(CFLAGS) -c $<
@@ -18,20 +18,20 @@ OCCXF = $(SCCXF:.f=.o)
 OCCXC = $(SCCXC:.c=.o)
 OCCXMAIN = $(SCCXMAIN:.c=.o)
 
-DIR=/tmp/SPOOLES.2.2
+DIR=/tmp/spooles.2.2
 
 PASTIX_INCLUDE = /tmp/pastix_i8/include
-PASTIX_LIBS = /tmp/hwloc_i8/lib64/libhwloc.so ../../../OpenBLAS_i8/lib/libopenblas.a \
-  /tmp/pastix_i8/lib/libpastix.a ../../../OpenBLAS_i8/lib/libopenblas.a -lpthread -lm /tmp/pastix_i8/lib/libspm.a \
-  /tmp/pastix_i8/lib/libpastix_parsec.a /tmp/pastix_i8/lib/libpastix_kernels.a ../../../OpenBLAS_i8/lib/libopenblas.a -lrt \
+PASTIX_LIBS = /tmp/pastix_i8/lib/libpastix.a -lpthread -lm /tmp/pastix_i8/lib/libspm.a \
+  /tmp/pastix_i8/lib/libpastix_parsec.a /tmp/pastix_i8/lib/libpastix_kernels.a -lrt \
   /tmp/pastix_i8/lib/libpastix_kernels_cuda.a /tmp/parsec_i8/lib/libparsec.so \
-  /usr/local/cuda-10.2/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/lib64/libcublas_static.a \
-  /usr/local/cuda-10.2/lib64/libculibos.a /usr/lib64/libcublasLt_static.a -lrt \
-  /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm /usr/lib64/libstdc++.so.6 /usr/lib64/libgomp.so.1
+  /usr/local/cuda/lib64/libcudart_static.a -lpthread -ldl -lrt /usr/local/cuda/targets/x86_64-linux/lib/libcublas_static.a \
+  /usr/local/cuda/lib64/libculibos.a /usr/local/cuda/targets/x86_64-linux/lib/libcublasLt_static.a -lrt \
+  /tmp/scotch_i8/lib/libscotch.a /tmp/scotch_i8/lib/libscotcherrexit.a -lpthread -lz -lm \
+  /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libgomp.so.1 /usr/lib/x86_64-linux-gnu/libhwloc.so.15.1.0
 
 LIBS = \
      $(DIR)/spooles.a \
-     ../../../ARPACK_i8/libarpack_INTEL_i8.a \
+     /tmp/ARPACK_i8/libarpack_INTEL.a \
      $(PASTIX_LIBS) \
      -lpthread -lm -lc
 

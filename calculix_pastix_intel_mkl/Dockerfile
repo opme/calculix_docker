@@ -34,7 +34,6 @@ RUN apt-get update
 RUN apt-get install -y wget git flex bison libz-dev software-properties-common python-minimal
 WORKDIR /tmp
 
-#RUN apt-get install -y nvidia-cuda-toolkit
 RUN apt-get install -y freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 RUN add-apt-repository ppa:graphics-drivers/ppa
 RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
@@ -69,19 +68,37 @@ COPY pastix/make_pastix.sh /tmp/pastix_i8
 COPY pastix/LibrariesAbsolutePath.cmake /tmp/pastix_i8/cmake_modules/morse_cmake/modules/find/LibrariesAbsolutePath.cmake
 RUN cd pastix_i8 && \
     ./make_pastix.sh
-# CalculiX
+
+# build calculix
+FROM intel/oneapi-hpckit:latest as calculix
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential zlib1g-dev hwloc
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
+WORKDIR /tmp
+COPY --from=spooles /tmp/spooles.2.2 /tmp/spooles.2.2
+COPY --from=arpack /tmp/ARPACK /tmp/ARPACK_i8
+COPY --from=pastix /tmp/hwloc_i8/lib /tmp/hwloc_i8/lib
+COPY --from=pastix /tmp/scotch_6.0.8/lib /tmp/scotch_i8/lib
+COPY --from=pastix /tmp/parsec_i8/lib /tmp/parsec_i8/lib
+COPY --from=pastix /tmp/pastix_i8/lib /tmp/pastix_i8/lib
+COPY --from=pastix /tmp/pastix_i8/include /tmp/pastix_i8/include
+COPY --from=pastix /usr/local/cuda/lib64 /usr/local/cuda/lib64
+COPY --from=pastix /usr/local/cuda/targets/x86_64-linux/lib /usr/local/cuda/targets/x86_64-linux/lib
 RUN wget http://www.dhondt.de/ccx_2.17.src.tar.bz2 && \
     bunzip2 ccx_2.17.src.tar.bz2 && \
     tar xvf ccx_2.17.src.tar
+COPY calculix/Makefile_i8 /tmp/CalculiX/ccx_2.17/src
+RUN cd CalculiX/ccx_2.17/src && \
+    make -f Makefile_i8
 
 
 #
 # base image
 #
 FROM ubuntu:20.04
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
 RUN apt-get update
-RUN apt-get install -y unzip libcminpack-dev ffmpeg libsm6 libxext6
-COPY --from=spooles /tmp/spooles.2.2.tgz /
-COPY --from=arpack  /tmp/patch.tar.gz /
-COPY --from=pastix  /tmp/ccx_2.17.src.tar /
+RUN apt-get install -y unzip hwloc gfortran gcc
+COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
+COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
 WORKDIR /
