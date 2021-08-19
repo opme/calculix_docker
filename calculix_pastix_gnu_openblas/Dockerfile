@@ -72,7 +72,7 @@ RUN cd pastix_i8 && \
     ./make_pastix.sh
 
 # build calculix
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as calculix
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget git gcc gfortran build-essential zlib1g-dev hwloc
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
@@ -98,13 +98,15 @@ RUN cd CalculiX/ccx_2.17/src && \
 #
 # base image
 #
-#FROM continuumio/anaconda3
-#EXPOSE 8888
+FROM continuumio/anaconda3
+EXPOSE 8888
 
-#RUN apt-get update
-#RUN apt-get install -y unzip libcminpack-dev ffmpeg libsm6 libxext6
-#COPY --from=calculix /tmp/ccx_2.17.src.tar /tmp/ccx_2.17.src.tar
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib
+RUN apt-get update
+RUN apt-get install -y unzip hwloc gfortran gcc
+COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
+COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
 
 # add command
-#WORKDIR /
-#CMD ["jupyter", "lab", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
+WORKDIR /
+CMD ["jupyter", "lab", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--allow-root"]
