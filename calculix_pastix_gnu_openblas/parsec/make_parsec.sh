@@ -23,7 +23,7 @@ cmake \
     -DCUDA_USE_STATIC_CUDA_RUNTIME=ON \
     -DCMAKE_CUDA_HOST_COMPILER=gcc \
     -DPARSEC_GPU_WITH_CUDA=ON \
-    -DHWLOC_DIR=/tmp/hwloc_i8 \
+    -DHWLOC_DIR=/usr/local/hwloc \
     ..
 
 make -j8
