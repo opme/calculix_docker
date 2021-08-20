@@ -101,7 +101,7 @@ RUN cd CalculiX/ccx_2.17/src && \
 FROM ubuntu:20.04
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib:/usr/local/hwloc/lib
 RUN apt-get update
-RUN apt-get install -y unzip gfortran gcc
+RUN apt-get install -y gcc libgfortran5
 COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
 COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
 COPY --from=calculix /usr/local/hwloc/lib /usr/local/hwloc/lib
