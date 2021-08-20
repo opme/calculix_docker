@@ -102,7 +102,7 @@ ALIBS =  $(ARPACKLIB) $(LAPACKLIB) $(BLASLIB)
 # %-----------------------------------------%
 #
 FC      = gfortran
-FFLAGS	= -O
+FFLAGS	= -O2
 
 LDFLAGS = 
 CD      = cd
