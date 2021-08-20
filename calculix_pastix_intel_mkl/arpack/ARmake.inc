@@ -102,7 +102,7 @@ ALIBS =  $(ARPACKLIB) $(LAPACKLIB) $(BLASLIB)
 # %-----------------------------------------%
 #
 FC      = ifort
-FFLAGS	= -O
+FFLAGS	= -O -mkl
 
 LDFLAGS = 
 CD      = cd
