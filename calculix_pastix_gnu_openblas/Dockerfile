@@ -79,7 +79,7 @@ ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu
 WORKDIR /tmp
 COPY --from=spooles /tmp/spooles.2.2 /tmp/spooles.2.2
 COPY --from=arpack /tmp/ARPACK /tmp/ARPACK_i8
-COPY --from=pastix /usr/local/hwloc/lib /usr/local/hwloc/lib
+COPY --from=pastix /tmp/hwloc_i8/lib /tmp/hwloc_i8/lib
 COPY --from=pastix /opt/OpenBLAS/lib /opt/OpenBLAS/lib
 COPY --from=pastix /tmp/scotch_6.0.8/lib /tmp/scotch_i8/lib
 COPY --from=pastix /tmp/parsec_i8/lib /tmp/parsec_i8/lib
@@ -104,5 +104,5 @@ RUN apt-get update
 RUN apt-get install -y gcc libgfortran5
 COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17_i8 /usr/local/bin
 COPY --from=calculix /tmp/parsec_i8/lib/libparsec.so.2 /usr/local/lib
-COPY --from=calculix /usr/local/hwloc/lib /usr/local/hwloc/lib
+COPY --from=calculix /tmp/hwloc_i8/lib /usr/local/hwloc/lib
 WORKDIR /
