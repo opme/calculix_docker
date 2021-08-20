@@ -14,7 +14,7 @@ This project contains the following Calculix 2.17 builds:
 Running using GPU
 ------------------
 
-'''
+```
 # Add the package repositories
 $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -22,13 +22,13 @@ $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.
 
 $ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 $ sudo systemctl restart docker
-'''
+```
 
 Running the docker with GPU support
 
-'''
+```
 docker run --name my_all_gpu_container --gpus all -t nvidia/cuda
-'''
+```
 
 Please note, the flag --gpus all is used to assign all available gpus to the docker container.
 
