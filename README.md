@@ -2,11 +2,11 @@
 
 This project contains the following Calculix 2.17 builds:
 
-- GNU compilers with OpenBlas - compiles not tested
+- GNU compilers - compiles not tested
 
 - GNU compilers with OpenBlas and PasTiX gpu enabled - compiles not tested
 
-- Intel compilers with MKL - compiles with basic testing
+- Intel compilers - compiles with basic testing
 
 - Intel compilers with MKL and PasTiX gpu enabled - compiles
 
@@ -14,6 +14,7 @@ This project contains the following Calculix 2.17 builds:
 Running using GPU
 ------------------
 
+'''
 # Add the package repositories
 $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
