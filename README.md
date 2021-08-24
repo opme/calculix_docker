@@ -10,6 +10,8 @@ This project contains the following Calculix 2.17 builds:
 
 - Intel compilers with MKL and PasTiX gpu enabled - compiles
 
+- Intel mpi compilers with MKL and Pardiso - compiles
+
 
 Running using GPU
 ------------------
