@@ -5,7 +5,7 @@ FROM continuumio/anaconda3
 EXPOSE 8888
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    apt-get install -y wget git unzip vim libglu1-mesa-dev freeglut3-dev mesa-common-dev libxmu-dev software-properties-common gnuplot gmsh
+    apt-get install -y wget git unzip vim libglu1-mesa-dev freeglut3-dev mesa-common-dev libxmu-dev software-properties-common gnuplot gmsh tetgen imagemagick
 WORKDIR /root
 # cgx
 RUN wget http://www.dhondt.de/cgx_2.17.1.bz2 && \
@@ -13,9 +13,10 @@ RUN wget http://www.dhondt.de/cgx_2.17.1.bz2 && \
     mv cgx_2.17.1 /usr/local/bin/cgx && \
     chmod 755 /usr/local/bin/cgx
 # examples for testing
-RUN wget https://github.com/opme/CalculiX-Examples/archive/bb0768f44adf4cfffc5c91718f28328768a07d09.zip && \
-    unzip bb0768f44adf4cfffc5c91718f28328768a07d09.zip && \
-    rm bb0768f44adf4cfffc5c91718f28328768a07d09.zip
+RUN wget https://github.com/opme/CalculiX-Examples/archive/b686c9b45fa2634bd0023222d88790ab7795ed86.zip && \
+    unzip b686c9b45fa2634bd0023222d88790ab7795ed86.zip && \
+    rm b686c9b45fa2634bd0023222d88790ab7795ed86.zip
+COPY cgx /root/.cgx
 
 # install gmsh
 #RUN wget http://gmsh.info/bin/Linux/gmsh-4.8.4-Linux64.tgz && \

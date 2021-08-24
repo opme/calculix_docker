@@ -12,6 +12,12 @@ This project contains the following Calculix 2.17 builds:
 
 - Intel mpi compilers with MKL and Pardiso - compiles
 
+Benchmark
+--------
+
+mkraska calculix examples was forked.   Changes were made to allow it to run under python3 and so that cgx does not 
+use graphical output.
+
 
 Running using GPU
 ------------------
