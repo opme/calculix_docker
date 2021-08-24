@@ -47,6 +47,6 @@ RUN cd CalculiX/ccx_2.17/src && \
 #
 FROM ubuntu:20.04
 RUN apt-get update
-RUN apt-get install -y wget zip
-COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17 /usr/local/bin
-WORKDIR /
+RUN apt-get install -y wget zip vim
+COPY --from=calculix /tmp/CalculiX/ccx_2.17/src/ccx_2.17 /usr/local/bin/ccx
+WORKDIR /root
