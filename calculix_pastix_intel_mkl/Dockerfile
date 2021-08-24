@@ -94,7 +94,7 @@ RUN cd CalculiX/ccx_2.17/src && \
 #
 # base image
 #
-FROM ubuntu:20.04
+FROM nvidia/cuda:11.4.1-runtime-ubuntu18.04
 ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib:/usr/local/hwloc/lib
 RUN apt-get update
 RUN apt-get install -y unzip hwloc gfortran gcc
